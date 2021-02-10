@@ -8,13 +8,34 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/opdracht-test/my-project/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/opdracht-test/my-project/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Moment</th>
+            <th>Tekst</th>
+            <th>Published</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for blog in blogs %}
+            <tr>
+                <td>{{ blog.id }}</td>
+                <td>{{ blog.moment ? blog.moment|date('Y-m-d H:i:s T') : '' }}</td>
+                <td>{{ blog.tekst }}</td>
+                <td>{{ blog.published ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('blog_show', {'id': blog.id}) }}">show</a>
+                    <a href="{{ path('blog_edit', {'id': blog.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

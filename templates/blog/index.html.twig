@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog index{% endblock %}
+
+{% block body %}
+    <h1>Blog index</h1>
+
+    <table class="table">
+
+        <tbody>
+        {% for blog in blogs %}
+
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <p class="card-text">{{ blog.id }}</p>
+                        <p class="card-text">{{ blog.moment ? blog.moment|date('Y-m-d H:i:s T') : '' }}</p>
+                        <p class="card-text">{{ blog.tekst }}</p>
+                        <p class="card-text">{{ blog.published ? 'Yes' : 'No' }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path('blog_show', {'id': blog.id}) }}">show</a></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path('blog_edit', {'id': blog.id}) }}">edit</a></button>
+                            </div>
+                            <small class="text-muted">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path('blog_new') }}">Create new</a></button>
+{% endblock %}
